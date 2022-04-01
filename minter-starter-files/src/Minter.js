@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { connectWallet, getCurrentWalletConnected, } from "./utils/interact.js";
+import { connectWallet, getCurrentWalletConnected, mintNFT } from "./utils/interact.js";
 
 const Minter = (props) => {
 
@@ -14,6 +14,8 @@ const Minter = (props) => {
     const { address, status } = await getCurrentWalletConnected()
     setWallet(address)
     setStatus(status)
+
+    addWalletListener()
   }, [])
 
   const connectWalletPressed = async () => { //TODO: implement 
@@ -23,7 +25,8 @@ const Minter = (props) => {
   };
 
   const onMintPressed = async () => { //TODO: implement
-    
+    const { status } = await mintNFT(url, name, description)
+    setStatus(status)
   };
 
   function addWalletListener() {
